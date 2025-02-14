@@ -1,0 +1,3 @@
+username: kai
+email: school email
+password: school password
