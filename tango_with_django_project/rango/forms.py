@@ -2,6 +2,8 @@ from django import forms
 from rango.models import Page, Category, UserProfile
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+
 
 class CategoryForm(forms.ModelForm):
     name = forms.CharField(max_length=128)
@@ -32,7 +34,7 @@ class PageForm(forms.ModelForm):
 
         return cleaned_data
 
-
+@login_required
 def add_category(request):
     form = CategoryForm()
 
