@@ -1,33 +1,24 @@
 {% extends 'rango/base.html' %}
 {% load static %}
 
-{% block title_block %}Homepage{% endblock %}
-
 {% block body_block %}
-    <h2>Welcome to Rango!</h2>
+{% if user.is_authenticated %}
+    <h2>howdy {{ user.username }}!</h2>
+{% else %}
+    <h2>hey there partner!</h2>
+{% endif %}
 
-    {% if categories %}
-        <ul>
-        {% for category in categories %}
-            <li>
-                <a href="{% url 'rango:show_category' category_name_slug=category.slug %}">
-                    {{ category.name }}
-                </a>
-            </li>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p>No categories currently available.</p>
-    {% endif %}
+<p>{{ boldmessage }}</p>
 
-    {% if pages %}
-        <h3>Top Pages</h3>
-        <ul>
-        {% for page in pages %}
-            <li>
-                <a href="{{ page.url }}">{{ page.title }}</a>
-            </li>
-        {% endfor %}
-        </ul>
-    {% endif %}
+<ul>
+{% for category in categories %}
+    <li>{{ category.name }} (Likes: {{ category.likes }})</li>
+{% endfor %}
+</ul>
+
+<ul>
+{% for page in pages %}
+    <li>{{ page.title }} (Views: {{ page.views }})</li>
+{% endfor %}
+</ul>
 {% endblock %}
